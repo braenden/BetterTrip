@@ -1,11 +1,19 @@
+//React
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+
+//Pages
 import Home from './pages/Home';
 import Detail from './pages/Detail';
-import { NhostApolloProvider } from '@nhost/react-apollo';
 import Login from './pages/Login';
+
+//Nhost
+import { NhostAuthProvider } from '@nhost/react-auth';
+import { auth } from './utils/nhost';
+import { NhostApolloProvider } from '@nhost/react-apollo';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -27,7 +35,9 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 const App: React.FC = () => (
-  <NhostApolloProvider gqlEndpoint={`https://hasura-xgqvvidg.nhost.app/v1/graphql`}>
+  //Auth er der for å kunne autentisere brukere, må ligge både i ApolloProvider og AuthProvider.
+  <NhostAuthProvider auth={auth}>
+  <NhostApolloProvider auth={auth} gqlEndpoint={`https://hasura-xgqvvidg.nhost.app/v1/graphql`}>
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
@@ -39,6 +49,7 @@ const App: React.FC = () => (
     </IonReactRouter>
   </IonApp>
   </NhostApolloProvider>
+  </NhostAuthProvider>
 );
 
 export default App;
