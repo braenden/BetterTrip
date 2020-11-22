@@ -1,7 +1,7 @@
 import { IonBackButton, IonButtons, IonCard, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react"
-import PostCard from "../components/PostCard";
-import IPost from "../models/IPost";
+import TripCard from "../components/TripCard";
+import ITrip from "../models/ITrip";
 import gql from 'graphql-tag';
 import { useQuery } from "@apollo/client";
 import ICommentList from "../models/ICommentList";
@@ -22,7 +22,7 @@ const GET_COMMENTS = gql`
 const Detail = (props: any) => {
 
     //Henter data fra props
-    const post: IPost = props.location?.state?.post //Tilsvarer state.post i Home.tsx
+    const post: ITrip = props.location?.state?.post //Tilsvarer state.post i Home.tsx
     //Bruker spørsmålstegn etter location og state for å slippe at ingenting rendrer når man går tilbake til home
 
     const { loading, data } = useQuery<ICommentList>(GET_COMMENTS, { //Her henter vi kommentarene ved hjelp av gitt query
@@ -52,7 +52,7 @@ if (loading) {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <PostCard {...post} />
+                <TripCard {...post} />
                 <IonCard>
                     <IonList>
                         {

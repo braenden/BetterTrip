@@ -2,12 +2,12 @@ import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent }
 import React from 'react'
 import IPost from '../models/IPost';
 
-const PostCard = ({description, id, title, user}: IPost) => {
-    //forteller at PostCard skal arve parametere fra IPost
+const TripCard = ({description, id, title, user}: IPost) => {
+    //forteller at TripCard skal arve parametere fra IPost
 
     return (
         <IonCard>
-        <img src="assets/tent-picture.jpeg" />
+        <img src="assets/examplephoto.jpeg" />
         <IonCardHeader>
           <IonCardSubtitle>
             @ {user.display_name} &bull; ? likes
@@ -23,4 +23,4 @@ const PostCard = ({description, id, title, user}: IPost) => {
     )
 }
 
-export default PostCard;
+export default TripCard;
