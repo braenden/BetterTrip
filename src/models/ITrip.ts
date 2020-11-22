@@ -1,6 +1,6 @@
 import IComment from "./IComment";
 
-interface IPost {
+interface ITrip {
     id: number;
     title: string;
     description: string;
@@ -13,4 +13,4 @@ interface IPost {
 
 }
 
-export default IPost;
+export default ITrip;

@@ -1,7 +1,7 @@
 import { IonButton, IonCard, IonSpinner, IonContent, IonFabButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, IonToast } from '@ionic/react';
 import React, { useState } from 'react';
 import { auth } from '../utils/nhost';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { logInOutline } from 'ionicons/icons';
 import { accessibilityOutline } from 'ionicons/icons';

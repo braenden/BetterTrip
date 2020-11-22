@@ -1,10 +1,13 @@
 import { useQuery } from '@apollo/client';
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonHeader, IonInput, IonLabel, IonPage, IonSlide, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonSlide, IonTitle, IonToolbar } from '@ionic/react';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import TripCard from '../components/TripCard';
 import ITripList from '../models/ITripList';
+import { addCircleOutline } from 'ionicons/icons'
+import { useHistory } from 'react-router-dom';
+import { auth } from '../utils/nhost';
 
 //Her blir data hentet ut fra databasen. Viktig at permissions er satt riktig i Hasura
 const GET_POSTS = gql` 
@@ -22,6 +25,7 @@ const GET_POSTS = gql`
 
 const Home = () => {
 
+  let history = useHistory();
   const {loading, data} = useQuery<ITripList>(GET_POSTS) //Her henter vi ut struktur fra ITripList interfacet
 
   if (loading) {
@@ -32,16 +36,28 @@ const Home = () => {
     console.log(data);
   }
 
+  const addNewPost = () => {
+    history.replace('/addtrip')
+  }
+
+  const logOutUser = async () => {
+    await auth.logout();
+    history.replace('/login')
+  }
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>BetterTrip</IonTitle>
           <IonButtons slot="end">
-            <IonButton>
-              +
+            <IonButton onClick={ addNewPost }>
+              <IonIcon icon={ addCircleOutline } />
             </IonButton>
           </IonButtons>
+            <IonButtons slot="start">
+              <IonButton onClick={ logOutUser }>Log out</IonButton>
+            </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

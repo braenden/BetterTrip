@@ -8,6 +8,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Detail from './pages/Detail';
 import Login from './pages/Login';
+import AddTrip from './pages/AddTrip';
 
 //Nhost
 import { NhostAuthProvider } from '@nhost/react-auth';
@@ -37,11 +38,12 @@ import './theme/variables.css';
 const App: React.FC = () => (
   //Auth er der for å kunne autentisere brukere, må ligge både i ApolloProvider og AuthProvider.
   <NhostAuthProvider auth={auth}>
-  <NhostApolloProvider auth={auth} gqlEndpoint={`https://hasura-xgqvvidg.nhost.app/v1/graphql`}>
+  <NhostApolloProvider auth={auth} gqlEndpoint={'https://hasura-xgqvvidg.nhost.app/v1/graphql'}>
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
         <Route path="/home" component={Home} exact={true} />
+        <Route path="/addtrip" component={AddTrip} exact={true} />
         <Route exact path="/" render={() => <Redirect to="/login" />} />
         <Route path="/detail/:id" component={Detail} exact={true} />
         <Route path="/login" component={Login} exact={true} />
