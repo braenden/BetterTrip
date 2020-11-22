@@ -20,3 +20,13 @@ Andre krav til kjøring:
 
 * Må ha CocoaPods installert, kan enkelt installeres via HomeBrew
 * Bruk helst ekstern terminal til å åpne prosjektet i Xcode
+
+
+
+Rules i Nhost:
+
+functions:  isAuthenticated: "return !!request.auth"  isOwner: "return !!request.auth && userId === request.auth['user-id']"paths:  /public*:    read: "true"    write: "isAuthenticated()"
+
+
+##Språkvalg
+Jeg har valgt å bruke engelsk over hele appen for å holde det ryddig, men ved eventuell videreutvikling av appen skal den være på norsk i tillegg.
