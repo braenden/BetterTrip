@@ -1,16 +1,17 @@
-import { IonBackButton, IonButton, IonButtons, IonCard, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonCard, IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react"
 import TripCard from "../components/TripCard";
 import ITrip from "../models/ITrip";
 import gql from 'graphql-tag';
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import ICommentList from "../models/ICommentList";
 import styled from 'styled-components';
+import { useState } from "react";
 import { auth } from "../utils/nhost";
 import { useHistory } from 'react-router-dom';
 
 const GET_COMMENTS = gql`
-  query getCommentsByPostID($post_id: Int!) {
+  subscription getCommentsByPostID($post_id: Int!) {
     posts_by_pk(id: $post_id) {
       comments {
         text
@@ -44,6 +45,16 @@ const DELETE_POST = gql`
   }
 `;
 
+const INSERT_COMMENT = gql`
+  mutation InsertComment($comment: comments_insert_input!) {
+    insert_comments_one(object: $comment) {
+      user_id,
+      post_id,
+      text
+    }
+  }
+`;
+
 const Detail = (props: any) => {
 
     //Henter data fra props
@@ -52,8 +63,10 @@ const Detail = (props: any) => {
 
     const [deleteTripMutation] = useMutation(DELETE_POST)
     let history = useHistory();
+    const [comment, setComment] = useState<string>("");
+    const [insertCommentMutation] = useMutation(INSERT_COMMENT);
 
-    const { loading, data } = useQuery<ICommentList>(GET_COMMENTS, { //Her henter vi kommentarene ved hjelp av gitt query
+    const { loading, data } = useSubscription<ICommentList>(GET_COMMENTS, { //Her henter vi kommentarene ved hjelp av gitt query
         variables: {
           post_id: post?.id
         },
@@ -75,9 +88,25 @@ if (loading) {
           post_id: post.id
         }
       })
-      history.replace("/home") //Ikke optimalt å kun redirekte brukeren til home siden da home ikke automatisk refreshes, men bedre enn at ingenting skjer
+      history.replace("/home") //Redirecter bruker rett til home, og siden jeg bruker subscriptions skal man kunne se at posten er borte automatisk
     }catch (e) {
       console.warn(e)
+    }
+  }
+
+  const insertComment = async () => {
+    try {
+      await insertCommentMutation({
+        variables: {
+          comment: {
+            post_id: post?.id,
+            user_id: auth.getClaim('x-hasura-user-id'),
+            text: comment
+          }
+        }
+      })
+    } catch(e) {
+      console.warn(e);
     }
   }
 
@@ -115,6 +144,14 @@ if (loading) {
                         ))}
                     </IonList>
                 </IonCard>
+                <IonCard>
+          <IonList>
+            <IonItem lines="none">
+              <IonTextarea placeholder="comment" onIonChange={(event: any) => setComment(event.target.value)} />
+            </IonItem>
+            <IonButton expand="block" onClick={insertComment}>Add comment</IonButton>
+          </IonList>
+        </IonCard>
             </IonContentDetail>
         </IonPage>     
     )

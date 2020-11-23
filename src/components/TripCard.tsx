@@ -32,21 +32,16 @@ const TripCard = ({description, title, user, image_filename}: ITrip) => {
     }
 } 
 
-Grunnet at jeg ikke får tilgang til storage i nhost har jeg prøvd meg på en alternativ løsning med 'if' 'else'.
-Jeg ville at hvis ikke appen klarte å hente bildene fra storage (som den tydeligvis ikke klarer) så vises et eksempelbilde example3.jpeg.
-Jeg fikk dessverre ikke dette til men lot det stå kommentert ut slik at du kan se hva jeg har tenkt. Nå må jeg bare vise eksempelbildet mitt uansett.
-
-*/
-
-
-
+Jeg hadde i lang tid ikke tilgang til storage i nhost, så jeg prøvde meg på noen alternative løsninger med 'if' 'else'.
+Jeg ville at hvis ikke appen klarte å hente bildene fra storage (som den ikke klarte) så viste et eksempelbilde example3.jpeg.
+Jeg fikk dessverre ikke dette til men lot det stå kommentert ut slik at man kan se hva jeg har tenkt. */
 
 
 
 
     return (
         <IonCard> 
-          <img src="/assets/example3.jpeg" />
+          <img src={`https://backend-xgqvvidg.nhost.app/storage/o/public/${image_filename}`} />
         <IonCardHeader>
           <IonCardSubtitle>
             {user.display_name} &bull; ? likes

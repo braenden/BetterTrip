@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useQuery, useSubscription } from '@apollo/client';
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonHeader, IonIcon, IonInput, IonLabel, IonPage, IonSlide, IonTitle, IonToolbar } from '@ionic/react';
 import gql from 'graphql-tag';
 import React, { useState } from 'react';
@@ -12,7 +12,7 @@ import styled from 'styled-components';
 
 //Her blir data hentet ut fra databasen. Viktig at permissions er satt riktig i Hasura
 const GET_POSTS = gql` 
-  query {
+  subscription {
     posts {
       id
       title
@@ -29,7 +29,7 @@ const GET_POSTS = gql`
 const Home = () => {
 
   let history = useHistory();
-  const {loading, data} = useQuery<ITripList>(GET_POSTS) //Her henter vi ut struktur fra ITripList interfacet
+  const {loading, data} = useSubscription<ITripList>(GET_POSTS) //Her henter vi ut struktur fra ITripList interfacet
 
   if (loading) {
     return <IonLabel>Loading</IonLabel> //Sier enkelt og greit at det skal displaye en melding om vi fortsatt venter på data.

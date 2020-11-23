@@ -47,24 +47,22 @@ const AddTrip = () => {
     let history = useHistory();
     const [title, setTitle] = useState<string>("");
     const [description, setDescription] = useState<string>("");
-
-
-    let filename = "";
+    const [filename, setFilename] = useState<string>("");
     
     const openCamera = async () => {
         await getPhoto({
             resultType: CameraResultType.DataUrl, //Forteller funksjonen at vi ser etter Base64 format, som er formatet bildet lagres i
             quality: 100, //Betyr ikke noe særlig
             allowEditing: false //Bytt til true hvis det skal kunne redigeres på bildet
-        })
+        });
+        setFilename(`${Date.now().toString()}.jpeg`) //Ikke interessant å generere navn på denne måten i en større app, men for denne fungerer det greit. 
     }
 
     const uploadPhoto = async () => {
-        filename = `${Date.now().toString()},jpeg` //Ikke interessant å generere navn på denne måten i en større app, men for denne fungerer det greit. 
         if(photo?.dataUrl) {
             await uploadingPhoto({
                 base64string: photo.dataUrl,
-                filenameWithExtension: filename
+                filenameWithExtension: filename 
             })
 
         }else{
@@ -82,9 +80,9 @@ const AddTrip = () => {
                         description,
                         image_filename: filename
                     }
-
                 }
             })
+            history.replace("/home")
         }catch (e) {
 
         }
@@ -95,7 +93,7 @@ const AddTrip = () => {
             <IonHeader>
                 <IonToolbar>
                         <IonButtons slot={'start'}>
-    <IonBackButton defaultHref="/home"></IonBackButton>
+                            <IonBackButton defaultHref="/home"></IonBackButton>
                         </IonButtons>
                     <IonTitle>Add new trip</IonTitle>
                 </IonToolbar>
@@ -118,6 +116,4 @@ const AddTrip = () => {
 
 export default AddTrip;
 
-/* Defaulthref sier bare at man uansett taes tilbake til home */
-
-/*Henter ut bildet vi tar med kamera*/
+/* defaultHref sier bare at man uansett redirectes tilbake til home */

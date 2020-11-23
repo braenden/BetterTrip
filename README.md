@@ -1,9 +1,25 @@
 Dokumentasjon og notater langs veien
 
+Kan starte med å si at prosjektet er startet fra scratch, og hver eneste lille linje av kode er skrevet selv. Noe er skrevet av 
+forelesninger, og noe er skrevet selv av tidligere kunnskap og andre ting lært gjennom artikler. Til og med i alle gql spørringene har jeg skrevet
+hvert tegn, selv om vi ble anbefalt å bare kopiere det. Så jeg har lært utrolig mye av å gjøre alt manuelt. Jeg har kommentert overalt hvor jeg
+følte jeg trengte å forstå til senere hva som betydde hva, og hva de forskjellige funksjonene gjorde.
 
-Prosjektet er inspirert av prosjektet fra forelesningen, og der hvor kode er direkte kopiert er det kommentert.
+
+Prosjektet er naturligvis inspirert av prosjektet fra forelesningene.
+
+Brukere:
 
 Brukernavn: epost@epost.no
+Passord: passord1234
+
+Brukernavn: okay@okay.no
+Passord: okay
+
+Brukernavn: test@test.no
+Passord: test
+
+Brukernavn: epost1@epost.no
 Passord: passord1234
 
 
@@ -75,3 +91,6 @@ Permissions av kommentarer:
 Permissions av poster/turer
 
 - Brukere kan slette signe egne poster, men ikke andres. Dette sjekkes ved å verifisere at Hasura-user-id matcher posten sin user_id.
+
+
+Kjent bug: Når man signer opp og automatisk blir tatt inn i homefeeden, er den tom. Tror det er noe feil med permissions i Hasura.

@@ -22,8 +22,7 @@ const PrivateRoute = ({ component, path, exact }: PrivateRouteProps) => {
 export default PrivateRoute;
 
 
-/* Jeg prøvde å bruke privateRoute slik at brukere som ikke er logget inn ikke fikk tilgang til andre sider enn /login, men det bugga seg 
-slik at når jeg trykket på 'addtrip' så ble siden helt blank og man fikk aldri tilgang til den siden selv om man er logget inn. Hvis det er ønskelig
-å forsøke dette selv kan 'import PrivateRoute' kommenteres ut i App.tsx, og så endre Route til PrivateRoute for routeren tilhørende /addtrip.
-
+/* Jeg opplevde en bug hvor jeg prøvde å bruke privateRoute slik at brukere som ikke er logget inn ikke fikk tilgang til andre sider enn /login, men
+når jeg trykket på 'addtrip' så ble siden helt blank og man fikk aldri tilgang til den siden selv om man er logget inn. Jeg fikk senere ordnet dette da jeg
+fikk tilgang til storage i Nhost. Hadde problem med tilgangen lenge, pga jeg hadde ett for mye mellomrom i storage-rules.
 */
