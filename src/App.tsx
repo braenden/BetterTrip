@@ -15,6 +15,9 @@ import { NhostAuthProvider } from '@nhost/react-auth';
 import { auth } from './utils/nhost';
 import { NhostApolloProvider } from '@nhost/react-apollo';
 
+//Components
+//import PrivateRoute from './components/PrivateRoute';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';

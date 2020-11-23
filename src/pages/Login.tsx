@@ -1,10 +1,11 @@
-import { IonButton, IonCard, IonSpinner, IonContent, IonFabButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, IonToast } from '@ionic/react';
+import { IonButton, IonCard, IonSpinner, IonContent, IonFabButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, useIonViewWillEnter, IonToast, IonButtons } from '@ionic/react';
 import React, { useState } from 'react';
 import { auth } from '../utils/nhost';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { logInOutline } from 'ionicons/icons';
 import { accessibilityOutline } from 'ionicons/icons';
+import { stringify } from 'querystring';
 
 
 
@@ -37,6 +38,22 @@ const authenticateUser = async () => {
         setShowToast(true);
     }
 }
+
+
+const signUp = async () => {
+    try {
+        await auth.register(emailAddress, password)
+        auth.login(emailAddress, password); //Hvis bruker fikk registrert seg blir han sjekket på brukernavn og passord, og hvis dette stemmer tatt direkte til '/home'
+                history.replace('/home')
+
+    }catch (exception) {
+        console.error(exception)
+        alert("Try using a different username!") //Forteller brukeren at det finnes en bruker allerede med dette brukernavnet
+        
+    }
+}
+
+
     return (
         <IonPage>
             <IonContent1>
@@ -71,6 +88,8 @@ const authenticateUser = async () => {
                                 // Har brukt ? og : som vist i forelesningen, annen måte å skrive 'if else' på
                         }
                     </LoginButton>
+
+                    <SignUpButton onClick={signUp}>Sign up</SignUpButton>
                 </Container>
             </IonContent1>
         </IonPage>
@@ -91,6 +110,10 @@ align-self: center;
 --background: #01161E;
 `;
 
+const SignUpButton = styled(IonButton) `
+align-self: center;
+--background: #01161E;
+`;
 
 
 const IonContent1 = styled(IonContent) `

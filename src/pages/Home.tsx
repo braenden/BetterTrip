@@ -8,6 +8,7 @@ import ITripList from '../models/ITripList';
 import { addCircleOutline } from 'ionicons/icons'
 import { useHistory } from 'react-router-dom';
 import { auth } from '../utils/nhost';
+import styled from 'styled-components';
 
 //Her blir data hentet ut fra databasen. Viktig at permissions er satt riktig i Hasura
 const GET_POSTS = gql` 
@@ -16,8 +17,10 @@ const GET_POSTS = gql`
       id
       title
       description
+      image_filename
       user {
         display_name
+        id
       }
     }
   }
@@ -36,11 +39,7 @@ const Home = () => {
     console.log(data);
   }
 
-  const addNewPost = () => {
-    history.replace('/addtrip')
-  }
-
-  const logOutUser = async () => {
+  const logOutUser = async () => { //Enkel logout funksjon
     await auth.logout();
     history.replace('/login')
   }
@@ -51,7 +50,7 @@ const Home = () => {
         <IonToolbar>
           <IonTitle>BetterTrip</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={ addNewPost }>
+            <IonButton routerLink="/addtrip">
               <IonIcon icon={ addCircleOutline } />
             </IonButton>
           </IonButtons>
@@ -60,7 +59,7 @@ const Home = () => {
             </IonButtons>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContentHome fullscreen>
         { // Bruker "link" som gjør at når vi trykker på en post så kaller den på "to"-propertien.
           data?.posts.map(post => (
             <Link style={{ textDecoration: 'none'}} to={{
@@ -74,9 +73,13 @@ const Home = () => {
                     //Pakker ut parameterne utenfor objektet.
           ))
         }
-      </IonContent>
+      </IonContentHome>
     </IonPage>
   );
 };
+
+const IonContentHome = styled(IonContent) `
+--background: #EFF6E0
+`;
 
 export default Home;
