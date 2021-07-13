@@ -1,12 +1,4 @@
-Dokumentasjon og notater langs veien
-
-Kan starte med å si at prosjektet er startet fra scratch, og hver eneste lille linje av kode er skrevet selv. Noe er skrevet av 
-forelesninger, og noe er skrevet selv av tidligere kunnskap og andre ting lært gjennom artikler. Til og med i alle gql spørringene har jeg skrevet
-hvert tegn, selv om vi ble anbefalt å bare kopiere det. Så jeg har lært utrolig mye av å gjøre alt manuelt. Jeg har kommentert overalt hvor jeg
-følte jeg trengte å forstå til senere hva som betydde hva, og hva de forskjellige funksjonene gjorde.
-
-
-Prosjektet er naturligvis inspirert av prosjektet fra forelesningene.
+Prosjektet er inspirert av prosjektet fra forelesningene.
 
 Brukere:
 
@@ -74,7 +66,7 @@ I den teoretiske delen (oppgave 1) har jeg valgt å gjøre oppgaven så reell so
 
 Kjente feil:
 
-- Ikke mulig å laste opp bilder, ikke klart å spore ned feilen.
+- Ikke mulig å laste opp bilder, ikke klart å finne feilen.
 
 
 
